@@ -1,4 +1,9 @@
-String settingsFile = "../mySettings.txt";
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
+String settingsFile = "mySettings.txt";
 HashMap settings = new HashMap();
 
 String loadSetting(String id, String defaultValue) {

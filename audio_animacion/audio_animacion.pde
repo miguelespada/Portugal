@@ -16,7 +16,7 @@ float decay = 0.93;
 
 OscP5 oscP5;
 NetAddress myBroadcastLocation; 
-int levels[] = {0, 100, 500, 700, 800, 1000, 1200}; 
+int levels[] = {0, 100, 500, 700, 800}; 
 int level = 0;
 int prevLevel = -1;
 float back = 0;
@@ -35,7 +35,7 @@ void setup()
     loadSettings();
     gain = loadSetting("gain", 50); 
     decay = loadSetting("decay", 0.93); 
-     initializeKeys() ;
+    initializeKeys() ;
 }
 
 void draw()
