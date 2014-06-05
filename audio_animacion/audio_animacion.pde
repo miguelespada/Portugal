@@ -23,6 +23,7 @@ float back = 0;
 
 void setup()
 {
+    //Comentario
     size(500, 200);
     minim = new Minim(this);
     
