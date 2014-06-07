@@ -5,6 +5,7 @@ import netP5.*;
 import processing.serial.*;
 import java.awt.*;
 
+String IP = "192.168.1.57";
 Minim minim;
 AudioInput in;
 AudioRecorder recorder;
@@ -16,14 +17,13 @@ float decay = 0.93;
 
 OscP5 oscP5;
 NetAddress myBroadcastLocation; 
-int levels[] = {0, 100, 500, 700, 800}; 
+int levels[] = {0, 100, 500, 700, 1200}; 
 int level = 0;
 int prevLevel = -1;
 float back = 0;
 
 void setup()
 {
-    //Comentario
     size(500, 200);
     minim = new Minim(this);
     
@@ -31,8 +31,8 @@ void setup()
     
     frameRate(25);
  
-    oscP5 = new OscP5(this,12000);
-    myBroadcastLocation = new NetAddress("192.168.1.39",8000);
+    oscP5 = new OscP5(this,8000);
+    myBroadcastLocation = new NetAddress(IP,8000);
     loadSettings();
     gain = loadSetting("gain", 50); 
     decay = loadSetting("decay", 0.93); 
@@ -75,12 +75,24 @@ void draw()
   
   for(int i = 0; i < levels.length; i ++)
      text("Level " + i + " - " + levels[i], 10, 70 + i * 14);
-  
-  
 }
 
 void sendValue(int level) {
   OscMessage myOscMessage = new OscMessage("/anima");  
   myOscMessage.add(level);
   oscP5.send(myOscMessage, myBroadcastLocation);
+  println("sending ", level);
+}
+
+void oscEvent(OscMessage theOscMessage) {
+  /* check if theOscMessage has the address pattern we are looking for. */
+  
+  if(theOscMessage.checkAddrPattern("/1/fader1")==true) {
+    gain = int(map(theOscMessage.get(0).floatValue(), 0, 1, 0, 200));  
+    saveSetting("gain", gain);  
+  } 
+  if(theOscMessage.checkAddrPattern("/1/fader2")==true) {
+     decay = map(theOscMessage.get(0).floatValue(), 0, 1, 0.85, 1); 
+     saveSetting("decay", decay);   
+  } 
 }

@@ -41,7 +41,7 @@ void keyPressed() {
    }
     
    if(key >= '0' && key <= '9')
-       sendValue(int(key));
+       sendValue(int(key - '0') - 1);
     
 }
 
