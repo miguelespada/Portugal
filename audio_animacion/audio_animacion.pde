@@ -6,7 +6,6 @@ import processing.serial.*;
 import java.awt.*;
 
 String IP = "192.168.1.57";
-String touch_IP;
 Minim minim;
 AudioInput in;
 AudioRecorder recorder;
