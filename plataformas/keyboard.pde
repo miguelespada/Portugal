@@ -27,14 +27,14 @@ void keyPressed() {
     keys[key] = true;
   
   if (key == CODED && keyCode == UP) {
-      if(keys['a']) players[0].thres += 1;
-      if(keys['s']) players[1].thres += 1;
-      if(keys['d']) players[2].thres += 1;
+      if(keys['a']) players[0].thres += 0.01;
+      if(keys['s']) players[1].thres += 0.01;
+      if(keys['d']) players[2].thres += 0.01;
   } 
   else if (key == CODED &&  keyCode == DOWN) {
-      if(keys['a']) players[0].thres -= 1;
-      if(keys['s']) players[1].thres -= 1;
-      if(keys['d']) players[2].thres -= 1;
+      if(keys['a']) players[0].thres -= 0.01;
+      if(keys['s']) players[1].thres -= 0.01;
+      if(keys['d']) players[2].thres -= 0.01;
    } 
    if (key == 's') {
      saveSetting("thres_0", players[0].thres);

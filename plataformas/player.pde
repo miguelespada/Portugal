@@ -16,9 +16,11 @@ class Player{
      state = 0;
      prevDelta = 0;  
    }
+   float value = 0;
+  // value = map(arduino.analogRead(port),0,1023,0,1);
    
-   float value = map(arduino.analogRead(port),0,1023,0,1);
-    
+   if(mousePressed) 
+     value = map(mouseY, 0, height, 0, 1);
    delta = value - prev;
    if(delta > thres){
      if (delta > prevDelta) 
@@ -30,6 +32,7 @@ class Player{
      prevDelta = delta;  
      sendJump(port, state);
      lastJumpTime = millis();
+     jump = true;
    }
   
    prev = value;
@@ -42,6 +45,10 @@ class Player{
     text("State " + state, 0, 20);
     text("jump " + delta, 0, 40);
     text("prev jump " + prevDelta, 0, 60);
+    if(jump){
+      jump = false;
+      ellipse(150, 50, 20, 20);
+    }
  }
  
  void processOsc(OscMessage theOscMessage){

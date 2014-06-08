@@ -45,11 +45,13 @@ void setup () {
 void draw () {
     background(0); 
     for(int p = 0; p < 3; p++){
-      //players[p].update();
+      players[p].update();
       pushMatrix();
       translate(20, 20 + p*100);
       players[p].draw();
       popMatrix();
+      stroke(colores[p]);
+      line(0, players[p].thres * height, width,  players[p].thres * height);
     }
 }
 
