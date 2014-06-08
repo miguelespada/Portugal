@@ -18,6 +18,7 @@ class Player{
    }
    
    float value = map(arduino.analogRead(port),0,1023,0,1);
+    
    delta = value - prev;
    if(delta > thres){
      if (delta > prevDelta) 

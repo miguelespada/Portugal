@@ -45,7 +45,7 @@ void setup () {
 void draw () {
     background(0); 
     for(int p = 0; p < 3; p++){
-      players[p].update();
+      //players[p].update();
       pushMatrix();
       translate(20, 20 + p*100);
       players[p].draw();
