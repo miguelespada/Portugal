@@ -52,7 +52,12 @@ void draw () {
       popMatrix();
       stroke(colores[p]);
       line(width/2, players[p].thres * height, width,  players[p].thres * height);
-    }
+      pushMatrix();
+      translate(width/2 + 50, 0);
+      line(p*50, 0, p*50, players[p].deltaInfo * height); 
+      ellipse(p*50, players[p].prevDelta * height, 3, 3); 
+      popMatrix();
+  }
 }
 
 void sendJump(float p, float speed) {

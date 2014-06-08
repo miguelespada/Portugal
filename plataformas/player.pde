@@ -1,7 +1,7 @@
 class Player{
  int port;
  float thres;
- float prev, prevDelta = 0, delta = 0;
+ float prev, prevDelta = 0, delta = 0, deltaInfo;
  int state = 0;
  boolean jump = false;
  float lastJumpTime;
@@ -23,6 +23,7 @@ class Player{
      value = map(mouseY, 0, height, 0, 1);
    delta = value - prev;
    if(delta > thres){
+     deltaInfo = delta;
      if (delta > prevDelta) 
        state += 1; 
      else
@@ -34,6 +35,7 @@ class Player{
      lastJumpTime = millis();
      jump = true;
    }
+   deltaInfo *= 0.95;
   
    prev = value;
  }
@@ -41,7 +43,7 @@ class Player{
  void draw(){
     fill(colores[port]);
     stroke(colores[port]);
-    text("Thres " + thres, 0, 0);
+    text("Thres " + int(thres * 1000), 0, 0);
     text("State " + state, 0, 20);
     text("jump " + delta, 0, 40);
     text("prev jump " + prevDelta, 0, 60);
