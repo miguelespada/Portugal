@@ -17,7 +17,7 @@ NetAddress myBroadcastLocation, touch;
 
 void setup () {
 // set the window size:
-  size(400, 600);        
+  size(400, 300);        
   frameRate(15);
     
   /*
@@ -51,7 +51,7 @@ void draw () {
       players[p].draw();
       popMatrix();
       stroke(colores[p]);
-      line(0, players[p].thres * height, width,  players[p].thres * height);
+      line(width/2, players[p].thres * height, width,  players[p].thres * height);
     }
 }
 
@@ -77,10 +77,13 @@ void oscEvent(OscMessage theOscMessage) {
   if(theOscMessage.checkAddrPattern("/2/thres")==true) 
     players[2].processOsc(theOscMessage);
     
-  if(theOscMessage.checkAddrPattern("/0/jump")==true) 
-    sendJump(1, int(random(0, 6)));
+  if(theOscMessage.checkAddrPattern("/0/jump")==true)
+   if( theOscMessage.get(0).floatValue() == 1.0)
+      sendJump(1, int(random(0, 6)));
   if(theOscMessage.checkAddrPattern("/1/jump")==true) 
+   if( theOscMessage.get(0).floatValue() == 1.0)
     sendJump(2, int(random(0, 6)));
   if(theOscMessage.checkAddrPattern("/2/jump")==true) 
+   if( theOscMessage.get(0).floatValue() == 1.0)
     sendJump(3,int(random(0, 6))); 
 }
