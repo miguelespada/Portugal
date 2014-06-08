@@ -6,7 +6,7 @@ import processing.serial.*;
 import java.awt.*;
 
 String IP = "192.168.1.57";
-String touch_IP = "192.168.1.35";
+String touch_IP;
 Minim minim;
 AudioInput in;
 AudioRecorder recorder;
@@ -34,7 +34,6 @@ void setup()
  
     oscP5 = new OscP5(this,8000);
     myBroadcastLocation = new NetAddress(IP,8000);
-    touch = new NetAddress(touch_IP,5001);
     loadSettings();
     gain = loadSetting("gain", 50); 
     decay = loadSetting("decay", 0.93); 
@@ -77,10 +76,6 @@ void draw()
   
   for(int i = 0; i < levels.length; i ++)
      text("Level " + i + " - " + levels[i], 10, 70 + i * 14);
-  
-  if(frameCount % 60 == 0){
-    sendToTouch();
-  }
 }
 
 void sendValue(int level) {
@@ -92,27 +87,22 @@ void sendValue(int level) {
 
 void oscEvent(OscMessage theOscMessage) {
   /* check if theOscMessage has the address pattern we are looking for. */
+  if(touch == null){
+    println("paring touch_osc at  ", theOscMessage.address().replace("/", ""));
+    touch = new NetAddress(theOscMessage.address().replace("/", ""), 5001); 
+  }
   if(theOscMessage.checkAddrPattern("/gain")==true) {
     gain = int(map(theOscMessage.get(0).floatValue(), 0, 1, 0, 200));  
     saveSetting("gain", gain);  
+    OscMessage myMessage = new OscMessage("/1/gain");
+    myMessage.add(gain); 
+    oscP5.send(myMessage, touch); 
   } 
   if(theOscMessage.checkAddrPattern("/decay")==true) {
      decay = map(theOscMessage.get(0).floatValue(), 0, 1, 0.85, 1); 
-     saveSetting("decay", decay);   
+     saveSetting("decay", decay); 
+     OscMessage myMessage = new OscMessage("/1/decay");
+     myMessage.add(decay); 
+     oscP5.send(myMessage, touch); 
   } 
-}
-void sendToTouch(){
-  
-  /* in the following different ways of creating osc messages are shown by example */
-  OscMessage myMessage = new OscMessage("/1/gain");
-  
-  myMessage.add(gain); 
- 
-  oscP5.send(myMessage, touch); 
-  myMessage = new OscMessage("/1/decay");
-  
-  myMessage.add(decay); 
- 
-  oscP5.send(myMessage, touch); 
-  
 }
