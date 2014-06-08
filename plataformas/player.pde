@@ -30,7 +30,7 @@ class Player{
        
      if(state < 0) state = 0;
      prevDelta = delta;  
-     sendJump(port, state);
+     sendJump(port + 1, state);
      lastJumpTime = millis();
      jump = true;
    }
