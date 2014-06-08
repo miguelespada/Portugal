@@ -1,2 +1,2 @@
-gain 82
-decay 0.8933545
+decay 1.0
+gain 61
