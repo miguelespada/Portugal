@@ -21,7 +21,7 @@ NetAddress myBroadcastLocation, touch;
 void setup () {
 // set the window size:
   size(400, 600);        
-  frameRate(25);
+  frameRate(15);
     
   /*
   String port = "";

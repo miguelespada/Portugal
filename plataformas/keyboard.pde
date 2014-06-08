@@ -43,9 +43,12 @@ void keyPressed() {
      println("Save settings... ");
    }
     
-   if(key >= '0' && key <= '9')
-       sendValue(int(key - '0'), 0);
-    
+   if(key >= '0' && key <= '9'){
+       if(keys['b']) sendValue(1, int(key - '0'));
+       if(keys['g']) sendValue(2, int(key - '0'));
+       if(keys['j']) sendValue(3, int(key - '0'));
+   
+ }
 }
 
 
