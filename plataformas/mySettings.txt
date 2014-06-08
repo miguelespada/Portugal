@@ -1,3 +1,1 @@
-thres_0 66.0
-thres_1 68.0
-thres_2 101.0
+thres_0 0.0
