@@ -27,28 +27,27 @@ void keyPressed() {
     keys[key] = true;
   
   if (key == CODED && keyCode == UP) {
-      if(keys['a']) thres[0] += 1;
-      if(keys['s']) thres[1] += 1;
-      if(keys['d']) thres[2] += 1;
+      if(keys['a']) players[0].thres += 1;
+      if(keys['s']) players[1].thres += 1;
+      if(keys['d']) players[2].thres += 1;
   } 
   else if (key == CODED &&  keyCode == DOWN) {
-      if(keys['a']) thres[0] -= 1;
-      if(keys['s']) thres[1] -= 1;
-      if(keys['d']) thres[2] -= 1;
-    } 
+      if(keys['a']) players[0].thres -= 1;
+      if(keys['s']) players[1].thres -= 1;
+      if(keys['d']) players[2].thres -= 1;
+   } 
    if (key == 's') {
-     saveSetting("thres_0", thres[0]);
-     saveSetting("thres_1", thres[1]);
-     saveSetting("thres_2", thres[2]);
+     saveSetting("thres_0", players[0].thres);
+     saveSetting("thres_1", players[1].thres);
+     saveSetting("thres_2", players[2].thres);
      println("Save settings... ");
    }
     
    if(key >= '0' && key <= '9'){
-       if(keys['b']) sendValue(1, int(key - '0'));
-       if(keys['g']) sendValue(2, int(key - '0'));
-       if(keys['j']) sendValue(3, int(key - '0'));
-   
- }
+       if(keys['b']) sendJump(1, int(key - '0'));
+       if(keys['g']) sendJump(2, int(key - '0'));
+       if(keys['j']) sendJump(3, int(key - '0'));
+   }
 }
 
 
