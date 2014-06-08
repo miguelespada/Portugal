@@ -110,4 +110,11 @@ void oscEvent(OscMessage theOscMessage) {
     myMessage.add(thres[2]); 
     oscP5.send(myMessage, touch); 
   } 
+  if(theOscMessage.checkAddrPattern("/0/jump")==true) 
+    sendValue(1, 0);
+  if(theOscMessage.checkAddrPattern("/1/jump")==true) 
+    sendValue(2, 0);
+  if(theOscMessage.checkAddrPattern("/2/jump")==true) 
+    sendValue(3, 0);
+  
 }
