@@ -5,6 +5,7 @@ class Player{
  int state = 0;
  boolean jump = false;
  float lastJumpTime;
+ int size = 0;
  
  Player(int port){
   this.port = port;
@@ -41,6 +42,9 @@ class Player{
  }
  
  void draw(){
+   
+    pushMatrix();
+      translate(20, 20 + port*100);
     fill(colores[port]);
     stroke(colores[port]);
     text("Thres " + int(thres * 1000), 0, 0);
@@ -49,8 +53,24 @@ class Player{
     text("prev jump " + prevDelta, 0, 60);
     if(jump){
       jump = false;
-      ellipse(150, 50, 20, 20);
+      size = 20;
     }
+    
+      ellipse(150, 50, size, size);
+      size *= 0.9;
+    popMatrix();
+    
+      pushMatrix();
+      translate(0, thres * height);
+      line(width/2, 0, width, 0);
+      popMatrix();
+      
+      
+      pushMatrix();
+      translate(width/2 + 50, 0);
+      line(port * 50, 0, port * 50, deltaInfo * height); 
+      ellipse(port * 50, prevDelta * height, 3, 3); 
+      popMatrix();
  }
  
  void processOsc(OscMessage theOscMessage){

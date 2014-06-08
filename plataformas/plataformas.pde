@@ -46,17 +46,7 @@ void draw () {
     background(0); 
     for(int p = 0; p < 3; p++){
       players[p].update();
-      pushMatrix();
-      translate(20, 20 + p*100);
       players[p].draw();
-      popMatrix();
-      stroke(colores[p]);
-      line(width/2, players[p].thres * height, width,  players[p].thres * height);
-      pushMatrix();
-      translate(width/2 + 50, 0);
-      line(p*50, 0, p*50, players[p].deltaInfo * height); 
-      ellipse(p*50, players[p].prevDelta * height, 3, 3); 
-      popMatrix();
   }
 }
 
