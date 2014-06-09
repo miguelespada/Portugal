@@ -1,6 +1,6 @@
-levels_3 1428
-levels_2 736
-levels_1 230
-levels_4 2395
-decay 0.9479008
-gain 53
+levels_3 1141
+levels_2 572
+levels_1 100
+levels_4 1556
+decay 0.92424244
+gain 101
