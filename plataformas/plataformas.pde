@@ -81,6 +81,7 @@ void oscEvent(OscMessage theOscMessage) {
      OscMessage myMessage = new OscMessage("/gameTimeLabel");
      myMessage.add(gameTime); 
      oscP5.send(myMessage, touch); 
+    oscP5.send(myMessage, myBroadcastLocation);  
   } 
   
   if(theOscMessage.checkAddrPattern("/itemFreq")==true) {
@@ -89,6 +90,7 @@ void oscEvent(OscMessage theOscMessage) {
      OscMessage myMessage = new OscMessage("/itemFreqLabel");
      myMessage.add(itemFreq); 
      oscP5.send(myMessage, touch); 
+    oscP5.send(myMessage, myBroadcastLocation); 
   } 
   
   
