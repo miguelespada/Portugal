@@ -20,7 +20,7 @@ void setup () {
   size(400, 300);        
   frameRate(15);
     
-  /*
+  
   String port = "";
   for(int i = 0; i < Serial.list().length; i ++){
     if (Serial.list()[i].contains("usbmodem"))
@@ -28,7 +28,7 @@ void setup () {
   }
   println("Connecting to " + port);
   arduino = new Arduino(this, port, 57600);
-  */
+  
   
   oscP5 = new OscP5(this,8000);
   myBroadcastLocation = new NetAddress(IP,12000);
@@ -60,10 +60,7 @@ void sendJump(float p, float speed) {
 
 void oscEvent(OscMessage theOscMessage) {
   /* check if theOscMessage has the address pattern we are looking for. */
-  if(touch == null){
-    println("paring touch_osc at  ", theOscMessage.address().replace("/", ""));
-    touch = new NetAddress(theOscMessage.address().replace("/", ""), 5001); 
-  }
+  touch = new NetAddress(theOscMessage.netAddress().address(), 5001); 
   
   if(theOscMessage.checkAddrPattern("/0/thres")==true) 
     players[0].processOsc(theOscMessage);

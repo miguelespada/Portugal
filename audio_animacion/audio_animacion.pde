@@ -5,7 +5,7 @@ import netP5.*;
 import processing.serial.*;
 import java.awt.*;
 
-String IP = "192.168.1.57";
+String IP = "127.0.0.1";
 Minim minim;
 AudioInput in;
 AudioRecorder recorder;
@@ -36,6 +36,10 @@ void setup()
     loadSettings();
     gain = loadSetting("gain", 50); 
     decay = loadSetting("decay", 0.93); 
+    levels[1] = loadSetting("levels_1", 100); 
+    levels[2] = loadSetting("levels_2", 500); 
+    levels[3] = loadSetting("levels_3", 1000); 
+    levels[4] = loadSetting("levels_4", 2000); 
     initializeKeys() ;
 }
 
@@ -86,10 +90,7 @@ void sendValue(int level) {
 
 void oscEvent(OscMessage theOscMessage) {
   /* check if theOscMessage has the address pattern we are looking for. */
-  if(touch == null){
-    println("paring touch_osc at  ", theOscMessage.address().replace("/", ""));
-    touch = new NetAddress(theOscMessage.address().replace("/", ""), 5001); 
-  }
+  touch = new NetAddress(theOscMessage.netAddress().address(), 5001); 
   if(theOscMessage.checkAddrPattern("/gain")==true) {
     gain = int(map(theOscMessage.get(0).floatValue(), 0, 1, 0, 200));  
     saveSetting("gain", gain);  
@@ -104,4 +105,38 @@ void oscEvent(OscMessage theOscMessage) {
      myMessage.add(decay); 
      oscP5.send(myMessage, touch); 
   } 
+  
+  if(theOscMessage.checkAddrPattern("/1/interval")==true) {
+     levels[1] = int(map(theOscMessage.get(0).floatValue(), 0, 1, 0, 4000)); 
+     saveSetting("levels_1", levels[1]); 
+     OscMessage myMessage = new OscMessage("/1/label");
+     myMessage.add(levels[1]); 
+     oscP5.send(myMessage, touch); 
+  }
+  
+   if(theOscMessage.checkAddrPattern("/2/interval")==true) {
+     levels[2] = int(map(theOscMessage.get(0).floatValue(), 0, 1, 0, 4000)); 
+     saveSetting("levels_2", levels[2]); 
+     OscMessage myMessage = new OscMessage("/2/label");
+     myMessage.add(levels[2]); 
+     oscP5.send(myMessage, touch); 
+  }
+  
+  if(theOscMessage.checkAddrPattern("/3/interval")==true) {
+     levels[3] = int(map(theOscMessage.get(0).floatValue(), 0, 1, 0, 4000)); 
+     saveSetting("levels_3", levels[3]); 
+     OscMessage myMessage = new OscMessage("/3/label");
+     myMessage.add(levels[3]); 
+     oscP5.send(myMessage, touch); 
+  }
+  
+  if(theOscMessage.checkAddrPattern("/4/interval")==true) {
+     levels[4] = int(map(theOscMessage.get(0).floatValue(), 0, 1, 0, 4000)); 
+     saveSetting("levels_4", levels[4]); 
+     OscMessage myMessage = new OscMessage("/4/label");
+     myMessage.add(levels[4]); 
+     oscP5.send(myMessage, touch); 
+  }
+  
+  
 }
