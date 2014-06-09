@@ -18,10 +18,8 @@ class Player{
      prevDelta = 0;  
    }
    float value = 0;
-   //value = map(arduino.analogRead(port),0,1023,0,1);
+   value = map(arduino.analogRead(port),0,1023,0,1);
    
-  /* if(mousePressed) 
-     value = map(mouseY, 0, height, 0, 1);*/
    delta = value - prev;
    if(delta > thres){
      deltaInfo = delta;

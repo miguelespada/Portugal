@@ -28,7 +28,7 @@ void setup () {
       port = Serial.list()[i];
   }
   println("Connecting to " + port);
- // arduino = new Arduino(this, port, 57600);
+  arduino = new Arduino(this, port, 57600);
   
   
   oscP5 = new OscP5(this,8000);
@@ -81,8 +81,8 @@ void oscEvent(OscMessage theOscMessage) {
      OscMessage myMessage = new OscMessage("/gameTimeLabel");
      myMessage.add(gameTime); 
      oscP5.send(myMessage, touch); 
-    oscP5.send(myMessage, myBroadcastLocation);  
-  } 
+     oscP5.send(myMessage, myBroadcastLocation);  
+   } 
   
   if(theOscMessage.checkAddrPattern("/itemFreq")==true) {
      itemFreq = int(map(theOscMessage.get(0).floatValue(), 0, 1, 1, 30)); 
@@ -90,7 +90,7 @@ void oscEvent(OscMessage theOscMessage) {
      OscMessage myMessage = new OscMessage("/itemFreqLabel");
      myMessage.add(itemFreq); 
      oscP5.send(myMessage, touch); 
-    oscP5.send(myMessage, myBroadcastLocation); 
+     oscP5.send(myMessage, myBroadcastLocation); 
   } 
   
   
