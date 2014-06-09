@@ -11,13 +11,14 @@ Arduino arduino;
 
 int colores[] = { #FF00FF, #0000FF, #FFFF00};
 Player players[];
+int gameTime, itemFreq;
 
 OscP5 oscP5;
 NetAddress myBroadcastLocation, touch; 
 
 void setup () {
 // set the window size:
-  size(400, 300);        
+  size(400, 320);        
   frameRate(15);
     
   
@@ -27,7 +28,7 @@ void setup () {
       port = Serial.list()[i];
   }
   println("Connecting to " + port);
-  arduino = new Arduino(this, port, 57600);
+ // arduino = new Arduino(this, port, 57600);
   
   
   oscP5 = new OscP5(this,8000);
@@ -40,10 +41,15 @@ void setup () {
   for(int p = 0; p < 3; p++)
     players[p] = new Player(p);
   
+  gameTime = loadSetting("gameTime", 30);
+  itemFreq = loadSetting("itemFreq", 3); 
 }
 
 void draw () {
     background(0); 
+    fill(255);
+    text("Game Time: " + gameTime + " item freq " + itemFreq, 10, 10);
+    translate(0, 40);
     for(int p = 0; p < 3; p++){
       players[p].update();
       players[p].draw();
@@ -68,7 +74,24 @@ void oscEvent(OscMessage theOscMessage) {
     players[1].processOsc(theOscMessage);
   if(theOscMessage.checkAddrPattern("/2/thres")==true) 
     players[2].processOsc(theOscMessage);
-    
+  
+   if(theOscMessage.checkAddrPattern("/gameTime")==true) {
+     gameTime = int(map(theOscMessage.get(0).floatValue(), 0, 1, 10, 60)); 
+     saveSetting("gameTime", gameTime); 
+     OscMessage myMessage = new OscMessage("/gameTimeLabel");
+     myMessage.add(gameTime); 
+     oscP5.send(myMessage, touch); 
+  } 
+  
+  if(theOscMessage.checkAddrPattern("/itemFreq")==true) {
+     itemFreq = int(map(theOscMessage.get(0).floatValue(), 0, 1, 1, 30)); 
+     saveSetting("itemFreq", itemFreq); 
+     OscMessage myMessage = new OscMessage("/itemFreqLabel");
+     myMessage.add(itemFreq); 
+     oscP5.send(myMessage, touch); 
+  } 
+  
+  
   if(theOscMessage.checkAddrPattern("/0/jump")==true)
    if( theOscMessage.get(0).floatValue() == 1.0)
       sendJump(1, int(random(0, 6)));
@@ -78,4 +101,6 @@ void oscEvent(OscMessage theOscMessage) {
   if(theOscMessage.checkAddrPattern("/2/jump")==true) 
    if( theOscMessage.get(0).floatValue() == 1.0)
     sendJump(3,int(random(0, 6))); 
+    
+    
 }

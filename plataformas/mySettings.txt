@@ -1,3 +1,5 @@
 thres_0 0.32633588
 thres_1 0.20801526
 thres_2 0.20610687
+itemFreq 10
+gameTime 43
