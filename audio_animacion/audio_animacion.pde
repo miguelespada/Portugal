@@ -32,7 +32,7 @@ void setup()
     frameRate(25);
  
     oscP5 = new OscP5(this,8000);
-    myBroadcastLocation = new NetAddress(IP,8000);
+    myBroadcastLocation = new NetAddress(IP,12000);
     loadSettings();
     gain = loadSetting("gain", 50); 
     decay = loadSetting("decay", 0.93); 

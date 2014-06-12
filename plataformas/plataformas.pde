@@ -9,7 +9,7 @@ String IP = "127.0.0.1";
 
 Arduino arduino;
 
-int colores[] = { #FF00FF, #0000FF, #FFFF00};
+int colores[] = { #FF00FF,  #FFFF00, #0000FF,};
 Player players[];
 int gameTime, itemFreq;
 
@@ -57,6 +57,8 @@ void draw () {
 }
 
 void sendJump(float p, float speed) {
+  if(p == 3) p = 2;
+  else if(p == 2) p = 3;
   OscMessage myOscMessage = new OscMessage("/jump");  
   myOscMessage.add(p); 
   myOscMessage.add(speed);
@@ -85,7 +87,7 @@ void oscEvent(OscMessage theOscMessage) {
    } 
   
   if(theOscMessage.checkAddrPattern("/itemFreq")==true) {
-     itemFreq = int(map(theOscMessage.get(0).floatValue(), 0, 1, 1, 30)); 
+     itemFreq = int(map(theOscMessage.get(0).floatValue(), 0, 1, 1, 6)); 
      saveSetting("itemFreq", itemFreq); 
      OscMessage myMessage = new OscMessage("/itemFreqLabel");
      myMessage.add(itemFreq); 

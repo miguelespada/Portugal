@@ -72,7 +72,7 @@ class Player{
  }
  
  void processOsc(OscMessage theOscMessage){
-    thres = theOscMessage.get(0).floatValue();  
+    thres = map(theOscMessage.get(0).floatValue(), 0, 1, 0, 0.2);  
     saveSetting("thres_" + port, thres);  
     OscMessage myMessage = new OscMessage("/" + port +"/thres/0");
     myMessage.add(thres); 

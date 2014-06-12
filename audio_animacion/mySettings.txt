@@ -2,5 +2,5 @@ levels_3 1141
 levels_2 572
 levels_1 100
 levels_4 1556
-decay 0.92424244
 gain 101
+decay 0.87662214
